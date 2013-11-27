@@ -17,7 +17,9 @@
   Lemming.options = {
     fileName: 'lemming.js',
 
-    timeout: 3000
+    timeout: 3000,
+
+    scripts: []
   };
 
   /**
@@ -51,7 +53,12 @@
       lemming.handleCompleted();
     });
 
-    worker.postMessage(this.script);
+    var message = JSON.stringify({
+      source: this.script,
+      scripts: options.scripts
+    });
+
+    worker.postMessage(message);
   };
 
   Lemming.prototype.onResult = function(callback) {
@@ -94,7 +101,12 @@
   }
 
   this.onmessage = function(e) {
-    var result = eval(e.data);
+    var data = JSON.parse(e.data);
+
+    importScripts.apply(this, data.scripts);
+
+    var result = eval(data.source);
+
     this.postMessage(result);
   };
 
