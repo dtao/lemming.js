@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lemming.js Demo</title>
+
+    <style type="text/css">
+        body {
+            font-family: Calibri, Helvetica, Arial, sans-serif;
+        }
+
+        #content {
+            width: 960px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            font-weight: 300;
+        }
+
+        .CodeMirror {
+            height: auto;
+            min-height: 100px;
+        }
+
+        .CodeMirror-scroll {
+            overflow-x: auto;
+            overflow-y: hidden;
+            font-family: Consolas, Inconsolata, monospace;
+            background-color: #eee;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="http://codemirror.net/lib/codemirror.css" />
+    <script type="text/javascript" src="http://codemirror.net/lib/codemirror.js"></script>
+    <script type="text/javascript" src="http://codemirror.net/mode/javascript/javascript.js"></script>
+    <script src="lemming.js"></script>
+
+    <script>
+        window.addEventListener('load', function() {
+            var textarea = document.querySelector('textarea'),
+                button   = document.querySelector('button'),
+                script   = document.getElementById('setup-demo');
+
+            CodeMirror(document.getElementById('usage'), {
+                mode: 'javascript',
+                value: script.textContent,
+                readOnly: true
+            });
+
+            setupDemo(CodeMirror.fromTextArea(textarea, {
+                mode: 'javascript'
+            }), button);
+        });
+    </script>
+</head>
+
+<body>
+    <div id="content">
+        <h1>Lemming.js Demo</h1>
+
+        <p><strong>Lemming.js</strong> is a library to evaluate user-input JavaScript source code in the background using a <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers">web worker</a>.</p>
+
+        <section id="usage">
+            <h2>Usage</h2>
+            <script id="setup-demo">function setupDemo(editor, button) {
+    button.addEventListener('click', function() {
+        var lemming = new Lemming(editor.getValue());
+
+        lemming.onTimeout(function() {
+            alert('Timed out.');
+        });
+
+        lemming.onResult(function(result) {
+            alert('Result: ' + result);
+        });
+
+        lemming.onError(function(error) {
+            alert('Oh noes! ' + error);
+        });
+
+        lemming.onCompleted(function() {
+            button.disabled = false;
+            button.textContent = 'Click Me!';
+        });
+
+        button.disabled = true;
+        button.textContent = 'Running...';
+        lemming.run();
+    });
+}</script>
+        </section>
+
+        <section id="demo">
+            <h2>Demo</h2>
+            <textarea placeholder="Enter some JavaScript code">// Enter some JavaScript code to evaluate</textarea>
+            <button>Click Me!</button>
+        </section>
+    </div>
+</body>
+
+</html>
