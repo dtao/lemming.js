@@ -19,7 +19,9 @@
 
     timeout: 3000,
 
-    scripts: []
+    scripts: [],
+
+    enableXHR: false
   };
 
   /**
@@ -55,7 +57,8 @@
 
     var message = JSON.stringify({
       source: this.script,
-      scripts: options.scripts
+      scripts: options.scripts,
+      enableXHR: options.enableXHR
     });
 
     worker.postMessage(message);
@@ -104,6 +107,10 @@
     var data = JSON.parse(e.data);
 
     importScripts.apply(this, data.scripts);
+
+    if (!data.enableXHR) {
+      delete this.XMLHttpRequest;
+    }
 
     var result = eval(data.source);
 
