@@ -7,28 +7,41 @@ Usage
 -----
 
 ```javascript
+// ----- Options (w/ defaults) -----
+
+// relative path to lemming.js
+Lemming.options.fileName = 'lemming.js';
+
+// how much time (in milliseconds) the lemming has to run the script
+Lemming.options.timeout = 3000;
+
+// array of external scripts (e.g., 'underscore.js') to depend on
+Lemming.options.scripts = [];
+
+// whether or not the lemming should be allowed to make AJAX requests
+Lemming.options.enableXHR = false;
+
+// ----- Usage (w/ callbacks) -----
+
 var lemming = new Lemming('source to evaluate');
 
 lemming.onTimeout(function() {
-    // if the script doesn't complete within a specified timeout
+  // if the script doesn't complete within a specified timeout
 });
 
 lemming.onResult(function(result) {
-    // the result of evaluating the script, assuming it runs to completion
+  // the result of evaluating the script, assuming it runs to completion
 });
 
 lemming.onError(function(error) {
-    // the error thrown by the script, if applicable
+  // the error thrown by the script, if applicable
 });
 
 lemming.onCompleted(function() {
-    // a catch-all callback to run whether the script times out, throws, or finishes successfully
+  // a catch-all callback to run whether the script times out, throws, or finishes successfully
 });
 
 lemming.run({
-    fileName: 'relative path to lemming.js (defaults to just "lemming.js")',
-    timeout: 'how much time (in milliseconds) the lemming has to run the script (defaults to 3000)',
-    scripts: 'array of external scripts to depend on',
-    enableXHR: 'whether or not the lemming should be allowed to make AJAX requests'
+  // optional overrides for Lemming.options
 });
 ```
