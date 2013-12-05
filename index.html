@@ -18,6 +18,15 @@
             font-weight: 300;
         }
 
+        a {
+            color: #05a;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #08c;
+        }
+
         .CodeMirror {
             height: auto;
             min-height: 100px;
@@ -57,7 +66,10 @@
 
 <body>
     <div id="content">
-        <h1>Lemming.js Demo</h1>
+        <h1>
+            Lemming.js Demo
+            <small><a href="https://github.com/dtao/lemming.js">Source on GitHub</a></small>
+        </h1>
 
         <p><strong>Lemming.js</strong> is a library to evaluate user-input JavaScript source code in the background using a <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers">web worker</a>.</p>
 
