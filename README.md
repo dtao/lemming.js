@@ -3,12 +3,10 @@ Lemming.js
 
 **Lemming.js** is a library to evaluate user-input JavaScript source code in the background using a [web worker](https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers).
 
-Usage
------
+Options
+-------
 
 ```javascript
-// ----- Options (w/ defaults) -----
-
 // relative path to lemming.js
 Lemming.options.fileName = 'lemming.js';
 
@@ -20,9 +18,12 @@ Lemming.options.scripts = [];
 
 // whether or not the lemming should be allowed to make AJAX requests
 Lemming.options.enableXHR = false;
+```
 
-// ----- Usage (w/ callbacks) -----
+Usage
+-----
 
+```javascript
 var lemming = new Lemming('source to evaluate');
 
 lemming.onTimeout(function() {
@@ -42,6 +43,6 @@ lemming.onCompleted(function() {
 });
 
 lemming.run({
-  // optional overrides for Lemming.options
+  // options to override Lemming.options
 });
 ```
