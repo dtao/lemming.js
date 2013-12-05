@@ -27,6 +27,8 @@ lemming.onCompleted(function() {
 
 lemming.run({
     fileName: 'relative path to lemming.js (defaults to just "lemming.js")',
-    timeout: 'how much time (in milliseconds) the lemming has to run the script (defaults to 3000)'
+    timeout: 'how much time (in milliseconds) the lemming has to run the script (defaults to 3000)',
+    scripts: 'array of external scripts to depend on',
+    enableXHR: 'whether or not the lemming should be allowed to make AJAX requests'
 });
 ```
