@@ -1,4 +1,4 @@
-(function(context) {
+(function() {
 
   /**
    * Creates a `Lemming` object with the specified script. Calling {@link #run} on the resulting
@@ -119,4 +119,4 @@
 
   this.Lemming = Lemming;
 
-}(this));
+}).call(this);
