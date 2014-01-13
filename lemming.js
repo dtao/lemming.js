@@ -103,19 +103,21 @@
     return object;
   }
 
-  this.onmessage = function(e) {
-    var data = JSON.parse(e.data);
+  if (typeof WorkerGlobalScope !== 'undefined' && this instanceof WorkerGlobalScope) {
+    this.onmessage = function onmessage(e) {
+      var data = JSON.parse(e.data);
 
-    importScripts.apply(this, data.scripts);
+      importScripts.apply(this, data.scripts);
 
-    if (!data.enableXHR) {
-      delete this.XMLHttpRequest;
-    }
+      if (!data.enableXHR) {
+        delete this.XMLHttpRequest;
+      }
 
-    var result = eval(data.source);
+      var result = eval(data.source);
 
-    this.postMessage(result);
-  };
+      this.postMessage(result);
+    };
+  }
 
   this.Lemming = Lemming;
 
